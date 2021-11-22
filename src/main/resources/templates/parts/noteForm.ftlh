@@ -18,16 +18,14 @@
                     <div class="col-sm-2 ">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="accessType" id="Private" value="PRIVATE"
-                            <#if editNote??><#if editNote.accessType=="PRIVATE">checked<#else>""</#if><#else>checked</#if>>
-
+                                   <#if editNote??><#if editNote.accessType=="PRIVATE">checked<#else></#if><#else>checked</#if>>
                             <label class="form-check-label" for="Private">
                                 Private
                             </label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="accessType" id="Public" value="PUBLIC"
-                            <#if editNote??><#if editNote.accessType=="PUBLIC">checked<#else>""</#if></#if>>
-
+                                   <#if editNote??><#if editNote.accessType=="PUBLIC">checked<#else></#if><#else></#if>>
                             <label class="form-check-label" for="Public">
                                 Public
                             </label>
