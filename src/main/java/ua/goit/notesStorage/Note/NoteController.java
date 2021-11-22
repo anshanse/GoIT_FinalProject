@@ -64,7 +64,14 @@ public class NoteController {
     }
 
     @GetMapping("delete/{id}")
-    public String noteDelete(@PathVariable String id, Map<String, Object> model){
+    public String noteDelete(@AuthenticationPrincipal User user,@PathVariable String id, Map<String, Object> model){
+        Note note = noteService.getById(UUID.fromString(id));
+        if (!note.getAuthor().getId().equals(user.getId())){
+            List<String> message = new ArrayList<>();
+            message.add("Deleting the note is prohibited - you are not author");
+            model.put("message", message);
+            return "noteError";
+        }
         noteService.deleteById(UUID.fromString(id));
         return "redirect:/note/list";
     }
