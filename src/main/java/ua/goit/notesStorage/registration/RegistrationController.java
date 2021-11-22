@@ -37,7 +37,9 @@ public class RegistrationController {
     @PostMapping("/register")
     public String addUser(@Valid User user, BindingResult bindingResult, Model model){
         if (userService.findByUsername(user.getUsername()).isPresent()){
-            model.addAttribute("message", "User exists!");
+            List<String> message = new ArrayList<>();
+            message.add("User exists!");
+            model.addAttribute("message", message);
             return "register";
         }
         user.setActive(true);

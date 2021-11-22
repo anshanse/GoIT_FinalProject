@@ -32,15 +32,14 @@ public class NoteController {
         List<Note> notes;
         if (filter != null || !filter.isEmpty()) {
             user = userService.getById(user.getId());
-            notes = noteService.getListNotes(user.getId());
+            notes = noteService.getAuthorNotes(user.getId());
         } else {
-            notes = noteService.getListNotes(user.getId());
+            notes = noteService.getAuthorNotes(user.getId());
         }
         int noteCount= notes.size();
         model.put("notes", notes);
         model.put("filter", filter);
         model.put("noteCount", noteCount);
-        //model.put("message", "TEST MESSAGE!"); //for view testing
         return "noteList";
     }
 
@@ -50,8 +49,14 @@ public class NoteController {
     }
 
     @GetMapping("edit/{id}")
-    public String noteEdit(@PathVariable String id,  Map<String, Object> model){
+    public String noteEdit(@AuthenticationPrincipal User user, @PathVariable String id,  Map<String, Object> model){
         Note note = noteService.getById(UUID.fromString(id));
+        if (!note.getAuthor().getId().equals(user.getId())){
+            List<String> message = new ArrayList<>();
+            message.add("Editing the note is prohibited - you are not author");
+            model.put("message", message);
+            return "noteError";
+        }
         if (note != null){
             model.put("editNote", note);
         }
