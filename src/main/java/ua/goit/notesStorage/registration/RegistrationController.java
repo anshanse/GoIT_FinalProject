@@ -1,5 +1,6 @@
 package ua.goit.notesStorage.registration;
 
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import ua.goit.notesStorage.authorization.User;
 import ua.goit.notesStorage.authorization.UserService;
 import ua.goit.notesStorage.enums.Role;
@@ -57,5 +58,4 @@ public class RegistrationController {
         model.addAttribute("message",error);
         return new ModelAndView("/register");
     }
-
 }
