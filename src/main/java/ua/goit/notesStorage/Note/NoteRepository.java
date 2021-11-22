@@ -16,4 +16,7 @@ public interface NoteRepository extends EntityRepository<Note, UUID> {
     @Query("SELECT c FROM Note c WHERE NOT (c.accessType='PRIVATE' AND c.author.id!=?1)")
     List<Note> getListNotes(UUID uuid);
 
+    @Query("SELECT c FROM Note c WHERE (c.author.id=?1)")
+    List<Note> getAuthorNotes(UUID uuid);
+
 }
